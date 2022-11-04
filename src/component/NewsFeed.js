@@ -15,7 +15,6 @@ const NewsFeed = () => {
     },
   });
 
-  console.log({ data, error });
   return (
     <div>
       <div className="mb-3">
@@ -29,7 +28,7 @@ const NewsFeed = () => {
         }
         if (error) {
           <div className="flex items-center justify-center">
-            <p>Somthing is fishy!</p>
+            <p>Something is fishy!</p>
           </div>;
         }
 

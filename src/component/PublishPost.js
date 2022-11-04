@@ -1,6 +1,6 @@
 import React from "react";
 
-const PublishPost = ({ post, handlePost, handlePostSubmit }) => {
+const PublishPost = ({ post, handlePost, handlePostSubmit, activeBtn }) => {
   return (
     <div>
       <form>
@@ -59,7 +59,8 @@ const PublishPost = ({ post, handlePost, handlePostSubmit }) => {
         </div>
         <button
           type="button"
-          className="inline-flex items-center px-5 py-2.5 text-sm font-medium text-center text-white bg-blue-700 rounded-lg focus:ring-4 focus:ring-blue-20 hover:bg-blue-800"
+          className={`inline-flex items-center px-5 py-2.5 text-sm font-medium text-center text-white bg-blue-700 rounded-lg focus:ring-4 focus:ring-blue-20 hover:bg-blue-800 disabled:bg-blue-200 disabled:hover:disabled:bg-blue-200`}
+          disabled={!activeBtn}
           onClick={handlePostSubmit}
         >
           Publish post

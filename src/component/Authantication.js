@@ -14,6 +14,13 @@ const Authantication = () => {
 
   const submitForm = () => {
     console.log({ values });
+    try {
+      if (form === "Sign in") {
+      } else {
+      }
+    } catch (error) {
+      console.log(error);
+    }
   };
   const actionBtn = (
     <button

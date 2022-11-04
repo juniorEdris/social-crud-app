@@ -1,9 +1,8 @@
 import React from "react";
 
-const PostCard = () => {
+const PostCard = ({ post }) => {
   return (
     <div className="flex bg-white shadow-lg rounded-lg my-4 ">
-      {/*horizantil margin is just for display*/}
       <div className="flex items-start px-4 py-6">
         <img
           className="w-12 h-12 rounded-full object-cover mr-4 shadow"
@@ -13,18 +12,14 @@ const PostCard = () => {
         <div className>
           <div className="flex items-center justify-between">
             <h2 className="text-lg font-semibold text-gray-900 -mt-1">
-              Brad Adams{" "}
+              {post?.userName}{" "}
             </h2>
-            <small className="text-sm text-gray-700">22h ago</small>
+            {/* <small className="text-sm text-gray-700">22h ago</small> */}
           </div>
-          <p className="text-gray-700">Joined 12 SEP 2012. </p>
-          <p className="mt-3 text-gray-700 text-sm">
-            Lorem ipsum, dolor sit amet conse. Saepe optio minus rem dolor sit
-            amet!
-          </p>
+          <p className="text-gray-700">{post.createdAt}</p>
+          <p className="mt-3 text-gray-700 text-sm">{post?.text}</p>
           <div className="mt-4 flex items-center">
             <div className="flex mr-2 text-gray-700 text-sm ">
-              {/* mr-3 */}
               <svg
                 fill="none"
                 viewBox="0 0 24 24"
@@ -41,7 +36,6 @@ const PostCard = () => {
               <span>12</span>
             </div>
             <div className="flex mr-2 text-gray-700 text-sm ">
-              {/* mr-8 */}
               <svg
                 fill="none"
                 viewBox="0 0 24 24"
@@ -58,7 +52,6 @@ const PostCard = () => {
               <span>8</span>
             </div>
             <div className="flex mr-2 text-gray-700 text-sm ">
-              {/* mr-4 */}
               <svg
                 fill="none"
                 viewBox="0 0 24 24"

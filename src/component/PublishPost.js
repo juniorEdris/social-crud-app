@@ -51,7 +51,15 @@ const PublishPost = ({ post, handlePost, handlePostSubmit, activeBtn }) => {
                     SVG, PNG, JPG or GIF (MAX. 800x400px)
                   </p>
                 </div>
-                <input id="dropzone-file" type="file" className="hidden" />
+                <input
+                  id="dropzone-file"
+                  type="file"
+                  name="file"
+                  className="hidden"
+                  onChange={(e) => {
+                    handlePost(e);
+                  }}
+                />
               </label>
             </div>
           </div>

@@ -6,23 +6,39 @@ import NewsFeed from "./NewsFeed";
 import PublishPost from "./PublishPost";
 
 const Home = () => {
-  const [post, setPost] = useState({ text: "", image: null });
+  const [post, setPost] = useState({ text: "", file: null });
+  console.log({ post });
   const { mutate } = useMutation({
     mutationKey: "publishPost",
-    mutationFn: (newTodo) => {
-      console.log(newTodo);
+    mutationFn: (newPost) => {
+      console.log(newPost);
       return request
-        .post("/api/create/post", newTodo)
+        .post("/api/create/post", newPost)
         .then((data) => queryClient.invalidateQueries(["posts"]));
     },
   });
 
-  const handlePost = (e) =>
-    setPost((prev) => ({ ...prev, [e.target.name]: e.target.value }));
+  const handlePost = (e) => {
+    if (e.target.name !== "file") {
+      setPost((prev) => ({ ...prev, [e.target.name]: e.target.value }));
+    } else {
+      setPost((prev) => ({ ...prev, [e.target.name]: e.target.files[0] }));
+    }
+  };
+
+  const upload = async () => {
+    console.log({ dd: post });
+    const formData = new FormData();
+    formData.append("file", post.file);
+    const imageRes = await request.post("/api/upload", formData);
+    return imageRes;
+  };
 
   const handlePostSubmit = async () => {
-    if (post.text.length > 0) {
-      await mutate({ text: post.text });
+    if (post.text.length > 0 || post.file.length > 0) {
+      const imageUrl = await upload();
+      console.log(imageUrl);
+      // await mutate({ text: post.text });
     }
   };
 

@@ -1,4 +1,4 @@
-import React from "react";
+import moment from "moment/moment";
 
 const PostCard = ({ post }) => {
   return (
@@ -16,8 +16,17 @@ const PostCard = ({ post }) => {
             </h2>
             {/* <small className="text-sm text-gray-700">22h ago</small> */}
           </div>
-          <p className="text-gray-700">{post.createdAt}</p>
+          <p className="text-gray-700">{moment(post.createdAt).fromNow()}</p>
           <p className="mt-3 text-gray-700 text-sm">{post?.text}</p>
+          {post?.imageName ? (
+            <div className="">
+              <img
+                className="" // w-12 h-12 rounded-full object-cover mr-4 shadow
+                src={`/images/${post.imageName}`}
+                alt={post.text}
+              />
+            </div>
+          ) : null}
           <div className="mt-4 flex items-center">
             <div className="flex mr-2 text-gray-700 text-sm ">
               <svg

@@ -7,14 +7,15 @@ import PublishPost from "./PublishPost";
 
 const Home = () => {
   const [post, setPost] = useState({ text: "", file: null });
-  console.log({ post });
   const { mutate } = useMutation({
     mutationKey: "publishPost",
     mutationFn: (newPost) => {
-      console.log(newPost);
       return request
         .post("/api/create/post", newPost)
         .then((data) => queryClient.invalidateQueries(["posts"]));
+    },
+    onSuccess: () => {
+      setPost((prev) => ({ ...prev, text: "", file: null }));
     },
   });
 
@@ -27,7 +28,6 @@ const Home = () => {
   };
 
   const upload = async () => {
-    console.log({ dd: post });
     const formData = new FormData();
     formData.append("file", post.file);
     const imageRes = await request.post("/api/upload", formData);
@@ -37,8 +37,9 @@ const Home = () => {
   const handlePostSubmit = async () => {
     if (post.text.length > 0 || post.file.length > 0) {
       const imageUrl = await upload();
-      console.log(imageUrl);
-      // await mutate({ text: post.text });
+
+      const imageName = imageUrl.data.file;
+      await mutate({ text: post.text, imageName });
     }
   };
 

@@ -1,4 +1,7 @@
+import { useMutation } from "@tanstack/react-query";
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { request } from "../utils/axios";
 import AuthForm from "./AuthForm";
 
 const Authantication = () => {
@@ -7,16 +10,49 @@ const Authantication = () => {
     password: "",
   });
   const [form, setForm] = useState("Sign in");
+  const [userName, setUserName] = useState("");
+
+  const navigate = useNavigate();
+
+  const { mutate } = useMutation({
+    mutationKey: "athenticate",
+    mutationFn: ({ values, api }) => {
+      return request
+        .post(api, values)
+        .then((data) => {
+          localStorage.setItem("user", JSON.stringify(data?.data?.data?.user));
+          navigate("/", { replace: true });
+        })
+        .catch((error) => {
+          console.log({ error });
+          if (form === "Sign in") {
+            alert(error.response.data.data.message);
+          } else {
+            alert(error.response.data.message);
+          }
+        });
+    },
+    onSuccess: (data) => {},
+    onError: (err) => {
+      console.log({ err });
+      alert(`${form} unsuccessful!`);
+    },
+  });
 
   const handleForm = (e) => {
-    setValues((prev) => ({ ...prev, [e.target.name]: e.target.value }));
+    if (!(e.target.name === "userName")) {
+      setValues((prev) => ({ ...prev, [e.target.name]: e.target.value }));
+    } else {
+      setUserName(e.target.value);
+    }
   };
 
-  const submitForm = () => {
-    console.log({ values });
+  const submitForm = async () => {
     try {
       if (form === "Sign in") {
+        await mutate({ values, api: "/api/login" });
       } else {
+        await mutate({ values: { ...values, userName }, api: "/api/register" });
       }
     } catch (error) {
       console.log(error);
@@ -60,7 +96,7 @@ const Authantication = () => {
         <div>
           <AuthForm
             label={form}
-            values={values}
+            values={{ ...values, userName }}
             handleForm={handleForm}
             actionBtn={actionBtn}
           />

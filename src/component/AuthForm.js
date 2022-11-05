@@ -23,6 +23,23 @@ const AuthForm = ({ label = "Sign in", values, handleForm, actionBtn }) => {
               onChange={(e) => handleForm(e)}
             />
           </div>
+          {label !== "Sign in" ? (
+            <div className="mb-2">
+              <label
+                htmlFor="userName"
+                className="block text-sm font-semibold text-gray-800"
+              >
+                User name
+              </label>
+              <input
+                type="text"
+                className="block w-full px-4 py-2 mt-2 text-purple-700 bg-white border rounded-md focus:border-purple-400 focus:ring-purple-300 focus:outline-none focus:ring focus:ring-opacity-40"
+                value={values?.userName}
+                name="userName"
+                onChange={(e) => handleForm(e)}
+              />
+            </div>
+          ) : null}
           <div className="mb-2">
             <label
               htmlFor="password"

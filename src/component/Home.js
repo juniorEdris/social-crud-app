@@ -6,6 +6,7 @@ import NewsFeed from "./NewsFeed";
 import PublishPost from "./PublishPost";
 
 const Home = () => {
+  const user = localStorage.getItem("user");
   const [post, setPost] = useState({ text: "", file: null });
   const { mutate } = useMutation({
     mutationKey: "publishPost",
@@ -63,14 +64,16 @@ const Home = () => {
             <h2 className="text-2xl font-medium text-center">Home</h2>
           </div>
         </div>
-        <div className="">
-          <PublishPost
-            post={post}
-            handlePost={handlePost}
-            handlePostSubmit={handlePostSubmit}
-            activeBtn={post.text.length > 0 || post.file}
-          />
-        </div>
+        {!user ? null : (
+          <div className="">
+            <PublishPost
+              post={post}
+              handlePost={handlePost}
+              handlePostSubmit={handlePostSubmit}
+              activeBtn={post.text.length > 0 || post.file}
+            />
+          </div>
+        )}
         <div className="my-3">
           <NewsFeed />
         </div>

@@ -5,7 +5,7 @@ const PostCard = ({ post }) => {
   return (
     <div className="bg-white shadow-lg rounded-lg my-4 ">
       <div className="px-4 py-6">
-        <div className="flex items-start gap-1">
+        <div className="flex items-start gap-1 mb-3">
           {!post?.userImage ? (
             <img
               className="w-12 h-12 rounded-full object-cover mr-4 shadow"
@@ -30,21 +30,23 @@ const PostCard = ({ post }) => {
             </small>
           </div>
         </div>
-        <div
-          className={`w-[470px] mx-auto ${post.imageName ? "h-[340px]" : ""}`}
-        >
-          <p className="mt-3 text-gray-700 text-base">{post?.text}</p>
+        <div className={``}>
+          {post?.text ? (
+            <p className="my-3 text-gray-700 text-lg font-normal capitalize">
+              {post?.text}
+            </p>
+          ) : null}
           {post?.imageName ? (
             <div className="">
               <img
-                className="h-[340px] w-[470px] object-cover shadow" //  h-12 rounded-full  mr-4
+                className="h-[340px] w-[100%] object-cover shadow" //  h-12 rounded-full  mr-4
                 src={`/images/${post.imageName}`}
                 alt={post.text}
               />
             </div>
           ) : null}
         </div>
-        <div className="mt-4 flex gap-5 items-center">
+        <div className="my-3 flex gap-5 items-center">
           <div className="flex items-center mr-2 text-gray-700 text-lg ">
             <svg
               fill="none"

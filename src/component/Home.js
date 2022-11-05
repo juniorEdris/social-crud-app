@@ -50,8 +50,6 @@ const Home = () => {
       // mutate the file
       await mutate({ text: post.text, imageName });
     }
-
-    console.log();
   };
 
   return (

@@ -17,6 +17,10 @@ const Home = () => {
     onSuccess: () => {
       setPost((prev) => ({ ...prev, text: "", file: null }));
     },
+    onError: (err) => {
+      console.log({ err });
+      alert("Mutation unsuccessful!");
+    },
   });
 
   const handlePost = (e) => {
@@ -27,20 +31,27 @@ const Home = () => {
     }
   };
 
+  // upload to main destination and get the url/file path
   const upload = async () => {
-    const formData = new FormData();
-    formData.append("file", post.file);
-    const imageRes = await request.post("/api/upload", formData);
-    return imageRes;
+    if (post.file) {
+      const formData = new FormData();
+      formData.append("file", post.file);
+      const imageRes = await request.post("/api/upload", formData);
+      return imageRes;
+    }
+    return "";
   };
 
   const handlePostSubmit = async () => {
     if (post.text.length > 0 || post.file.length > 0) {
+      // get the url/file path
       const imageUrl = await upload();
-
       const imageName = imageUrl.data.file;
+      // mutate the file
       await mutate({ text: post.text, imageName });
     }
+
+    console.log();
   };
 
   return (

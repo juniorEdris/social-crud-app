@@ -55,9 +55,11 @@ const Home = () => {
   };
 
   return (
-    <div className="grid grid-cols-[300px_minmax(500px,_1fr)_300px] gap-4">
-      <div />
-      <div className="">
+    <div className="grid grid-cols-[300px_minmax(500px,_1fr)_300px] gap-4 ">
+      <div className="px-5">
+        <h2 className="text-2xl font-medium text-center">Home left</h2>
+      </div>
+      <div className="px-5">
         <div className="mb-4">
           <div>
             <h2 className="text-2xl font-medium text-center">Home</h2>
@@ -75,7 +77,9 @@ const Home = () => {
           <NewsFeed />
         </div>
       </div>
-      <div />
+      <div className="px-5">
+        <h2 className="text-2xl font-medium text-center">Home right</h2>
+      </div>
     </div>
   );
 };

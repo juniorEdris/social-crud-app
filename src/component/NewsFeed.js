@@ -18,7 +18,7 @@ const NewsFeed = () => {
   return (
     <div>
       <div className="mb-3">
-        <h2 className="text-lg font-medium text-center">Posts</h2>
+        <h2 className="text-lg font-medium text-center">NewsFeed</h2>
       </div>
       {(() => {
         if (isLoading) {

@@ -20,7 +20,7 @@ const PublishPost = ({ post, handlePost, handlePostSubmit, activeBtn }) => {
               required
             ></textarea>
           </div>
-          {/* image section start here */}
+          {/* preview after select image section start here */}
           <div className="">
             {post.file ? (
               <img
@@ -71,7 +71,7 @@ const PublishPost = ({ post, handlePost, handlePostSubmit, activeBtn }) => {
               </div>
             )}
           </div>
-          {/* image section ends here */}
+          {/* preview after select image section ends here */}
         </div>
         <button
           type="button"

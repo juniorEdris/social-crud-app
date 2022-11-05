@@ -43,10 +43,10 @@ const Home = () => {
   };
 
   const handlePostSubmit = async () => {
-    if (post.text.length > 0 || post.file.length > 0) {
+    if (post.text.length > 0 || post.file) {
       // get the url/file path
       const imageUrl = await upload();
-      const imageName = imageUrl.data.file;
+      const imageName = imageUrl ? imageUrl.data.file : "";
       // mutate the file
       await mutate({ text: post.text, imageName });
     }
@@ -68,7 +68,7 @@ const Home = () => {
             post={post}
             handlePost={handlePost}
             handlePostSubmit={handlePostSubmit}
-            activeBtn={post.text.length > 0}
+            activeBtn={post.text.length > 0 || post.file}
           />
         </div>
         <div className="my-3">

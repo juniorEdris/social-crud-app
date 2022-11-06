@@ -3,6 +3,7 @@ import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { queryClient } from "../..";
 import { request } from "../../utils/axios";
+import { placeHolderImage } from "../../utils/etc";
 import MenuElement from "../../utils/headlessUiElement/menu";
 
 const HomeRight = () => {
@@ -44,12 +45,21 @@ const HomeRight = () => {
         <MenuElement menuBtnClasses="w-full" handleButton={logOut}>
           <div className="flex justify-between items-center bg-white drop-shadow-lg rounded-lg my-4 p-2">
             <span className="text-lg font-medium">{user?.name}</span>
-            <img
-              className="w-12 h-12 rounded-full object-cover shadow"
-              src={user?.profileImage}
-              alt="Profile avatar"
-              loading="lazy"
-            />
+            {user.profileImage ? (
+              <img
+                className="w-12 h-12 rounded-full object-cover shadow"
+                src={user?.profileImage}
+                alt="Profile avatar"
+                loading="lazy"
+              />
+            ) : (
+              <img
+                className="w-12 h-12 rounded-full object-cover shadow"
+                src={placeHolderImage}
+                alt="Profile avatar"
+                loading="lazy"
+              />
+            )}
           </div>
         </MenuElement>
       ) : (

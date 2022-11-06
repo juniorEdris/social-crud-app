@@ -1,19 +1,26 @@
 import { useMutation } from "@tanstack/react-query";
 import { useState } from "react";
-import { queryClient } from "..";
-import { request } from "../utils/axios";
-import NewsFeed from "./NewsFeed";
-import PublishPost from "./PublishPost";
+import { queryClient } from "../..";
+import { request } from "../../utils/axios";
+import NewsFeed from "../NewsFeed";
+import PublishPost from "../PublishPost";
+import HomeLeft from "./HomeLeft";
+import HomeRight from "./HomeRight";
 
 const Home = () => {
-  const user = localStorage.getItem("user");
+  const user = localStorage.getItem("user")
+    ? JSON.parse(localStorage.getItem("user"))
+    : null;
+
   const [post, setPost] = useState({ text: "", file: null });
+
+  // Mutation
   const { mutate } = useMutation({
     mutationKey: "publishPost",
     mutationFn: (newPost) => {
-      return request
-        .post("/api/create/post", newPost)
-        .then((data) => queryClient.invalidateQueries(["posts"]));
+      return request.post("/api/create/post", newPost).then((data) => {
+        queryClient.invalidateQueries(["posts"]);
+      });
     },
     onSuccess: () => {
       setPost((prev) => ({ ...prev, text: "", file: null }));
@@ -56,12 +63,12 @@ const Home = () => {
   return (
     <div className="grid grid-cols-[300px_minmax(500px,_1fr)_300px] gap-4 ">
       <div className="px-5">
-        <h2 className="text-2xl font-medium text-center">Home left</h2>
+        <HomeLeft />
       </div>
       <div className="px-5">
         <div className="mb-4">
           <div>
-            <h2 className="text-2xl font-medium text-center">Home</h2>
+            <h2 className="text-2xl font-medium text-center">News Feed</h2>
           </div>
         </div>
         {!user ? null : (
@@ -79,7 +86,9 @@ const Home = () => {
         </div>
       </div>
       <div className="px-5">
-        <h2 className="text-2xl font-medium text-center">Home right</h2>
+        {" "}
+        <HomeRight />
+        {/* <Right /> */}
       </div>
     </div>
   );

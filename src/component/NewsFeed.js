@@ -17,9 +17,6 @@ const NewsFeed = () => {
 
   return (
     <div>
-      <div className="mb-3">
-        <h2 className="text-lg font-medium text-center">NewsFeed</h2>
-      </div>
       {(() => {
         if (isLoading) {
           <div className="flex items-center justify-center">

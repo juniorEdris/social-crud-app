@@ -88,7 +88,6 @@ const Home = () => {
       <div className="px-5">
         {" "}
         <HomeRight />
-        {/* <Right /> */}
       </div>
     </div>
   );

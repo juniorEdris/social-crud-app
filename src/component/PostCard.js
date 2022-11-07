@@ -1,24 +1,29 @@
 import moment from "moment/moment";
+import { useState } from "react";
 import { placeHolderImage } from "../utils/etc";
+import Modal from "./Atomic/Template/Modal";
 
 const PostCard = ({ post }) => {
+  const [isOpen, setIsOpen] = useState(false);
   return (
     <div className="bg-white shadow-lg rounded-lg my-4 ">
       <div className="px-4 py-6">
         <div className="flex items-start gap-1 mb-3">
-          {!post?.userImage ? (
-            <img
-              className="w-12 h-12 rounded-full object-cover mr-4 shadow"
-              src={placeHolderImage}
-              alt="avatar"
-            />
-          ) : (
-            <img
-              className="w-12 h-12 rounded-full object-cover mr-4 shadow"
-              src={post.userImage}
-              alt="avatar"
-            />
-          )}
+          <div className="" onClick={() => setIsOpen()}>
+            {!post?.userImage ? (
+              <img
+                className="w-12 h-12 rounded-full object-cover mr-4 shadow"
+                src={placeHolderImage}
+                alt="avatar"
+              />
+            ) : (
+              <img
+                className="w-12 h-12 rounded-full object-cover mr-4 shadow"
+                src={post.userImage}
+                alt="avatar"
+              />
+            )}
+          </div>
           <div className="flex items-start flex-col gap-1">
             <div className="">
               <h2 className="text-lg font-semibold text-gray-900 -mt-1">
@@ -37,11 +42,14 @@ const PostCard = ({ post }) => {
             </p>
           ) : null}
           {post?.imageName ? (
-            <div className="">
+            <div
+              className="cursor-pointer"
+              onClick={() => setIsOpen((prev) => !prev)}
+            >
               <img
                 className="h-[340px] w-[100%] object-cover shadow" //  h-12 rounded-full  mr-4
                 src={`/images/${post.imageName}`}
-                alt={post.text}
+                alt={post.text ?? "Post"}
               />
             </div>
           ) : null}
@@ -97,6 +105,18 @@ const PostCard = ({ post }) => {
           </div>
         </div>
       </div>
+      <Modal
+        open={{ isOpen, setIsOpen }}
+        customPanelClasses="max-w-[80%]"
+        title={post?.text ?? ""}
+      >
+        <img
+          className="w-full"
+          src={`/images/${post?.imageName}`}
+          alt={post?.text ?? "Post"}
+          loading="lazy"
+        />
+      </Modal>
     </div>
   );
 };

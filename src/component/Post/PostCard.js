@@ -1,25 +1,23 @@
-import { size } from "lodash";
 import { useState } from "react";
-import { placeHolderImage } from "../utils/etc";
-import { comments } from "../utils/StaticData/AllLinks";
 import {
   AgoMoment,
   CommentOutline,
   CommentSolid,
-  Heading1,
   Image,
   LikeOutline,
   LikeSolid,
   PrimaryText,
   ProfileImage,
   ProfileNameHeading,
-} from "./AtomicDesign/Atoms";
-import Modal from "./AtomicDesign/Template/Modal";
+} from "../AtomicDesign/Atoms";
+import Modal from "../AtomicDesign/Template/Modal";
+import Comments from "../Comments";
 
 const PostCard = ({ post }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [liked, setLiked] = useState(false);
   const [showCommentBox, setShowCommentBox] = useState(false);
+  const [totalComment, setTotalComment] = useState(0);
   return (
     <div className="bg-white shadow-lg rounded-lg my-4 ">
       <div className="px-4 py-6">
@@ -46,7 +44,7 @@ const PostCard = ({ post }) => {
             >
               <Image
                 customClasses="h-[340px] w-[100%] object-cover shadow"
-                src={`/images/${post.imageName}`}
+                src={post.imageName}
                 alt={post.text ?? "Post"}
               />
             </div>
@@ -58,7 +56,7 @@ const PostCard = ({ post }) => {
             onClick={() => setLiked((prev) => !prev)}
           >
             {!liked ? <LikeOutline /> : <LikeSolid />}
-            <span>12</span>
+            {/* <span>12</span> */}
           </div>
           <div
             className="flex items-center mr-2 text-gray-700 text-lg cursor-pointer"
@@ -66,7 +64,7 @@ const PostCard = ({ post }) => {
           >
             {!showCommentBox ? <CommentOutline /> : <CommentSolid />}
 
-            <span>{size(comments)}</span>
+            {/* <span>{size(totalComment)}</span> */}
           </div>
           {/* <div className="flex items-center mr-2 text-gray-700 text-lg ">
             <svg
@@ -87,45 +85,8 @@ const PostCard = ({ post }) => {
         </div>
         {/* Comment section start here */}
         {showCommentBox ? (
-          <div className="">
-            <div className="mb-3">
-              <Heading1 heading="Comments" />
-            </div>
-            <div className="">
-              {comments?.map((comment) => (
-                <div className="flex items-center gap-2" key={comment?.id}>
-                  <div className="">
-                    <ProfileImage
-                      src={`/images/${comment?.profileImage}`}
-                      alt={comment?.comment}
-                    />
-                  </div>
-                  <div className="flex items-start flex-col flex-1">
-                    <div>
-                      <div className="">
-                        <ProfileNameHeading heading={comment?.userName} />
-                      </div>
-                    </div>
-                    <div className="w-full">
-                      <div className="py-1 px-2 bg-slate-200 rounded-lg block">
-                        <PrimaryText
-                          text={comment?.comment}
-                          customClasses={`my-1 text-normal mx-2`}
-                        />
-                      </div>
-                      <div className="flex items-center gap-2">
-                        <span className="cursor-pointer">
-                          <LikeOutline customClasses="w-4 h-4" />
-                        </span>
-                        <span className="">
-                          <AgoMoment time={comment?.createdAt} />
-                        </span>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              ))}
-            </div>
+          <div className="border-t-2 border-t-slate-200">
+            <Comments id={post?._id} setTotalComment={setTotalComment} />
           </div>
         ) : null}
       </div>

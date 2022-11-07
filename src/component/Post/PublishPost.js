@@ -1,4 +1,5 @@
 import React from "react";
+import { MutateButton, TextArea } from "../AtomicDesign/Atoms";
 
 const PublishPost = ({ post, handlePost, handlePostSubmit, activeBtn }) => {
   return (
@@ -9,16 +10,14 @@ const PublishPost = ({ post, handlePost, handlePostSubmit, activeBtn }) => {
             <label for="editor" className="sr-only">
               Publish post
             </label>
-            <textarea
-              id="editor"
+            <TextArea
               name="text"
               rows="6"
-              className="block w-full text-sm text-gray-800 bg-white border-0 dark:bg-gray-800 focus:ring-0 dark:text-white dark:placeholder-gray-400 p-2 resize-none"
+              customClasses="block w-full text-sm text-gray-800 bg-white border-0 dark:bg-gray-800 focus:ring-0 dark:text-white dark:placeholder-gray-400 p-2 resize-none"
               placeholder="Write an post..."
               value={post?.text}
-              onChange={(e) => handlePost(e)}
-              required
-            ></textarea>
+              handleTextarea={(e) => handlePost(e)}
+            />
           </div>
           {/* preview after select image section start here */}
           <div className="">
@@ -73,14 +72,12 @@ const PublishPost = ({ post, handlePost, handlePostSubmit, activeBtn }) => {
           </div>
           {/* preview after select image section ends here */}
         </div>
-        <button
-          type="button"
-          className={`inline-flex items-center px-5 py-2.5 text-sm font-medium text-center text-white bg-blue-700 rounded-lg focus:ring-4 focus:ring-blue-20 hover:bg-blue-800 disabled:bg-blue-200 disabled:hover:disabled:bg-blue-200`}
+        <MutateButton
+          title="Publish post"
+          customClasses={`inline-flex items-center px-5 py-2.5 text-sm font-medium text-center text-white bg-blue-700 rounded-lg focus:ring-4 focus:ring-blue-20 hover:bg-blue-800 disabled:bg-blue-200 disabled:hover:disabled:bg-blue-200`}
           disabled={!activeBtn}
-          onClick={handlePostSubmit}
-        >
-          Publish post
-        </button>
+          handleMutate={handlePostSubmit}
+        />
       </form>
     </div>
   );

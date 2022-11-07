@@ -1,7 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
 import React from "react";
-import { request } from "../utils/axios";
-import PostCard from "./PostCard";
+import { request } from "../../utils/axios";
+import PostCard from "../Post/PostCard";
 
 const NewsFeed = () => {
   const { isLoading, error, data } = useQuery({

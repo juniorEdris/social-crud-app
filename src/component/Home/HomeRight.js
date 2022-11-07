@@ -3,7 +3,6 @@ import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { queryClient } from "../..";
 import { request } from "../../utils/axios";
-import { placeHolderImage } from "../../utils/etc";
 import MenuElement from "../../utils/headlessUiElement/menu";
 import { ExitIcon, ProfileImage } from "../AtomicDesign/Atoms";
 

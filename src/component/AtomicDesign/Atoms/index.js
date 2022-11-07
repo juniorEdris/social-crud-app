@@ -1,8 +1,13 @@
 import moment from "moment";
 import { placeHolderImage } from "../../../utils/etc";
 
-export const Image = ({ customClasses = "", src, alt }) => (
-  <img className={`${customClasses}`} src={src} alt={alt} loading="lazy" />
+export const Image = ({ customClasses = "", src, alt = "" }) => (
+  <img
+    className={`${customClasses}`}
+    src={`/images/${src}`}
+    alt={alt}
+    loading="lazy"
+  />
 );
 
 export const Heading1 = ({ customClasses = "", heading = "" }) => (
@@ -24,18 +29,54 @@ export const ProfileImage = ({ customClasses = "", src = "", alt = "" }) =>
     />
   );
 
-export const ProfileNameHeading = ({ customClasses, heading }) => (
+export const ProfileNameHeading = ({ customClasses = "", heading = "" }) => (
   <h2 className={`text-lg font-semibold text-gray-900 -mt-1 ${customClasses}`}>
     {heading}
   </h2>
 );
-export const PrimaryText = ({ customClasses, text }) =>
+export const PrimaryText = ({ customClasses = "", text = "" }) =>
   text ? <p className={`text-gray-700 ${customClasses}`}>{text}</p> : null;
 
-export const AgoMoment = ({ customClasses, time }) => (
+export const AgoMoment = ({ customClasses = "", time = "" }) => (
   <small className={`text-sm text-gray-700 ${customClasses}`}>
     {moment(time).fromNow()}
   </small>
+);
+
+export const MutateButton = ({
+  customClasses = "",
+  title = "",
+  handleMutate = () => {},
+  disabled,
+}) => (
+  <button
+    type="button"
+    className={`${customClasses}`}
+    disabled={disabled}
+    onClick={handleMutate}
+  >
+    {title}
+  </button>
+);
+
+export const TextArea = ({
+  name = "",
+  customClasses = "",
+  rows = 4,
+  placeholder = "",
+  value = "",
+  handleTextarea = () => {},
+}) => (
+  <textarea
+    name={name}
+    rows={rows}
+    className={customClasses}
+    placeholder={placeholder}
+    value={value}
+    onChange={(e) => {
+      handleTextarea(e);
+    }}
+  ></textarea>
 );
 
 //  SVG Icons (Hero Icons)

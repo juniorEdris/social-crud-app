@@ -2,8 +2,8 @@ import { useMutation } from "@tanstack/react-query";
 import { useState } from "react";
 import { queryClient } from "../..";
 import { request } from "../../utils/axios";
-import NewsFeed from "../NewsFeed";
-import PublishPost from "../PublishPost";
+import NewsFeed from "./NewsFeed";
+import PublishPost from "../Post/PublishPost";
 import HomeLeft from "./HomeLeft";
 import HomeRight from "./HomeRight";
 

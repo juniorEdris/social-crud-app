@@ -1,53 +1,51 @@
-import moment from "moment/moment";
+import { size } from "lodash";
 import { useState } from "react";
 import { placeHolderImage } from "../utils/etc";
-import Modal from "./Atomic/Template/Modal";
+import { comments } from "../utils/StaticData/AllLinks";
+import {
+  AgoMoment,
+  CommentOutline,
+  CommentSolid,
+  Heading1,
+  Image,
+  LikeOutline,
+  LikeSolid,
+  PrimaryText,
+  ProfileImage,
+  ProfileNameHeading,
+} from "./AtomicDesign/Atoms";
+import Modal from "./AtomicDesign/Template/Modal";
 
 const PostCard = ({ post }) => {
   const [isOpen, setIsOpen] = useState(false);
+  const [liked, setLiked] = useState(false);
+  const [showCommentBox, setShowCommentBox] = useState(false);
   return (
     <div className="bg-white shadow-lg rounded-lg my-4 ">
       <div className="px-4 py-6">
         <div className="flex items-start gap-1 mb-3">
-          <div className="" onClick={() => setIsOpen()}>
-            {!post?.userImage ? (
-              <img
-                className="w-12 h-12 rounded-full object-cover mr-4 shadow"
-                src={placeHolderImage}
-                alt="avatar"
-              />
-            ) : (
-              <img
-                className="w-12 h-12 rounded-full object-cover mr-4 shadow"
-                src={post.userImage}
-                alt="avatar"
-              />
-            )}
+          <div className="">
+            <ProfileImage src={post.userImage} alt="avatar" />
           </div>
           <div className="flex items-start flex-col gap-1">
             <div className="">
-              <h2 className="text-lg font-semibold text-gray-900 -mt-1">
-                {post?.userName}{" "}
-              </h2>
+              <ProfileNameHeading heading={post?.userName} />
             </div>
-            <small className="text-sm text-gray-700">
-              {moment(post.createdAt).fromNow()}
-            </small>
+            <AgoMoment time={post.createdAt} />
           </div>
         </div>
         <div className={``}>
-          {post?.text ? (
-            <p className="my-3 text-gray-700 text-lg font-normal capitalize">
-              {post?.text}
-            </p>
-          ) : null}
+          <PrimaryText
+            text={post?.text}
+            customClasses={`text-lg font-normal capitalize`}
+          />
           {post?.imageName ? (
             <div
               className="cursor-pointer"
               onClick={() => setIsOpen((prev) => !prev)}
             >
-              <img
-                className="h-[340px] w-[100%] object-cover shadow" //  h-12 rounded-full  mr-4
+              <Image
+                customClasses="h-[340px] w-[100%] object-cover shadow"
                 src={`/images/${post.imageName}`}
                 alt={post.text ?? "Post"}
               />
@@ -55,39 +53,22 @@ const PostCard = ({ post }) => {
           ) : null}
         </div>
         <div className="my-3 flex gap-5 items-center">
-          <div className="flex items-center mr-2 text-gray-700 text-lg ">
-            <svg
-              fill="none"
-              viewBox="0 0 24 24"
-              className="w-4 h-4 mr-1"
-              stroke="currentColor"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth={2}
-                d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"
-              />
-            </svg>
+          <div
+            className="flex items-center mr-2 text-gray-700 text-lg cursor-pointer"
+            onClick={() => setLiked((prev) => !prev)}
+          >
+            {!liked ? <LikeOutline /> : <LikeSolid />}
             <span>12</span>
           </div>
-          <div className="flex items-center mr-2 text-gray-700 text-lg ">
-            <svg
-              fill="none"
-              viewBox="0 0 24 24"
-              className="w-4 h-4 mr-1"
-              stroke="currentColor"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth={2}
-                d="M17 8h2a2 2 0 012 2v6a2 2 0 01-2 2h-2v4l-4-4H9a1.994 1.994 0 01-1.414-.586m0 0L11 14h4a2 2 0 002-2V6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2v4l.586-.586z"
-              />
-            </svg>
-            <span>8</span>
+          <div
+            className="flex items-center mr-2 text-gray-700 text-lg cursor-pointer"
+            onClick={() => setShowCommentBox((prev) => !prev)}
+          >
+            {!showCommentBox ? <CommentOutline /> : <CommentSolid />}
+
+            <span>{size(comments)}</span>
           </div>
-          <div className="flex items-center mr-2 text-gray-700 text-lg ">
+          {/* <div className="flex items-center mr-2 text-gray-700 text-lg ">
             <svg
               fill="none"
               viewBox="0 0 24 24"
@@ -102,16 +83,60 @@ const PostCard = ({ post }) => {
               />
             </svg>
             <span>share</span>
-          </div>
+          </div> */}
         </div>
+        {/* Comment section start here */}
+        {showCommentBox ? (
+          <div className="">
+            <div className="mb-3">
+              <Heading1 heading="Comments" />
+            </div>
+            <div className="">
+              {comments?.map((comment) => (
+                <div className="flex items-center gap-2" key={comment?.id}>
+                  <div className="">
+                    <ProfileImage
+                      src={`/images/${comment?.profileImage}`}
+                      alt={comment?.comment}
+                    />
+                  </div>
+                  <div className="flex items-start flex-col flex-1">
+                    <div>
+                      <div className="">
+                        <ProfileNameHeading heading={comment?.userName} />
+                      </div>
+                    </div>
+                    <div className="w-full">
+                      <div className="py-1 px-2 bg-slate-200 rounded-lg block">
+                        <PrimaryText
+                          text={comment?.comment}
+                          customClasses={`my-1 text-normal mx-2`}
+                        />
+                      </div>
+                      <div className="flex items-center gap-2">
+                        <span className="cursor-pointer">
+                          <LikeOutline customClasses="w-4 h-4" />
+                        </span>
+                        <span className="">
+                          <AgoMoment time={comment?.createdAt} />
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        ) : null}
       </div>
+
       <Modal
         open={{ isOpen, setIsOpen }}
         customPanelClasses="max-w-[80%]"
         title={post?.text ?? ""}
       >
-        <img
-          className="w-full"
+        <Image
+          customClasses="w-full"
           src={`/images/${post?.imageName}`}
           alt={post?.text ?? "Post"}
           loading="lazy"

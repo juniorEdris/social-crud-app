@@ -61,7 +61,7 @@ const Authantication = () => {
   const actionBtn = (
     <button
       type="button"
-      className="w-full px-4 py-2 tracking-wide text-white bg-purple-700 transition-colors duration-75 transform  rounded-md hover:bg-purple-600 focus:outline-none focus:bg-purple-600"
+      className="w-full px-4 py-2 tracking-wide text-white bg-sky-700 transition-colors duration-75 transform  rounded-md hover:bg-sky-600 focus:outline-none focus:bg-sky-600"
       onClick={submitForm}
     >
       {form}
@@ -74,7 +74,7 @@ const Authantication = () => {
         <div className="flex items-center justify-center gap-4 my-5">
           <span
             className={`${
-              form === "Sign in" ? "text-purple-700 underline" : ""
+              form === "Sign in" ? "text-sky-700 underline" : ""
             } text-xl`}
             tabIndex="0"
             role="button"
@@ -84,7 +84,7 @@ const Authantication = () => {
           </span>
           <span
             className={`${
-              form === "Sign up" ? "text-purple-700 underline" : ""
+              form === "Sign up" ? "text-sky-700 underline" : ""
             } text-xl`}
             tabIndex="0"
             role="button"

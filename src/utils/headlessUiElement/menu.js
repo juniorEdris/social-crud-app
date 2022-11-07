@@ -31,7 +31,7 @@ const MenuElement = ({
                   <Link
                     to="/profile"
                     className={`${
-                      active ? "bg-violet-500 text-white" : "text-gray-900"
+                      active ? "bg-sky-600 text-white" : "text-gray-900"
                     } group flex w-full items-center rounded-md px-2 py-2 font-medium text-base capitalize`}
                   >
                     profile
@@ -45,7 +45,7 @@ const MenuElement = ({
                   <Link
                     to="/help"
                     className={`${
-                      active ? "bg-violet-500 text-white" : "text-gray-900"
+                      active ? "bg-sky-600 text-white" : "text-gray-900"
                     } group flex w-full items-center rounded-md px-2 py-2 font-medium text-base capitalize`}
                   >
                     help
@@ -59,7 +59,7 @@ const MenuElement = ({
                   <Link
                     to="/settings"
                     className={`${
-                      active ? "bg-violet-500 text-white" : "text-gray-900"
+                      active ? "bg-sky-600 text-white" : "text-gray-900"
                     } group flex w-full items-center rounded-md px-2 py-2 font-medium text-base capitalize`}
                   >
                     settings
@@ -73,7 +73,7 @@ const MenuElement = ({
                   <button
                     type="button"
                     className={`${
-                      active ? "bg-violet-500 text-white" : "text-gray-900"
+                      active ? "bg-sky-600 text-white" : "text-gray-900"
                     } group flex w-full items-center rounded-md px-2 py-2 font-medium text-base capitalize`}
                     onClick={handleButton}
                   >

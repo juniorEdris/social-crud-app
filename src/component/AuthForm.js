@@ -4,9 +4,9 @@ const AuthForm = ({ label = "Sign in", values, handleForm, actionBtn }) => {
   return (
     <div className="relative flex flex-col justify-center min-h-screen overflow-hidden">
       <div className="w-full p-6 m-auto bg-white rounded-md shadow-md lg:max-w-xl">
-        <h1 className="text-3xl font-semibold text-center text-purple-700 underline">
+        {/* <h1 className="text-3xl font-semibold text-center text-sky-700 underline">
           {label}
-        </h1>
+        </h1> */}
         <form className="mt-6">
           <div className="mb-2">
             <label
@@ -17,7 +17,7 @@ const AuthForm = ({ label = "Sign in", values, handleForm, actionBtn }) => {
             </label>
             <input
               type="email"
-              className="block w-full px-4 py-2 mt-2 text-purple-700 bg-white border rounded-md focus:border-purple-400 focus:ring-purple-300 focus:outline-none focus:ring focus:ring-opacity-40"
+              className="block w-full px-4 py-2 mt-2 text-gray-900 bg-white border rounded-md focus:border-purple-400 focus:ring-purple-300 focus:outline-none focus:ring focus:ring-opacity-40"
               value={values?.email}
               name="email"
               onChange={(e) => handleForm(e)}
@@ -27,13 +27,13 @@ const AuthForm = ({ label = "Sign in", values, handleForm, actionBtn }) => {
             <div className="mb-2">
               <label
                 htmlFor="userName"
-                className="block text-sm font-semibold text-gray-800"
+                className="block text-sm font-semibold text-gray-900"
               >
                 User name
               </label>
               <input
                 type="text"
-                className="block w-full px-4 py-2 mt-2 text-purple-700 bg-white border rounded-md focus:border-purple-400 focus:ring-purple-300 focus:outline-none focus:ring focus:ring-opacity-40"
+                className="block w-full px-4 py-2 mt-2 text-gray-900 bg-white border rounded-md focus:border-purple-400 focus:ring-purple-300 focus:outline-none focus:ring focus:ring-opacity-40"
                 value={values?.userName}
                 name="userName"
                 onChange={(e) => handleForm(e)}
@@ -49,7 +49,7 @@ const AuthForm = ({ label = "Sign in", values, handleForm, actionBtn }) => {
             </label>
             <input
               type="password"
-              className="block w-full px-4 py-2 mt-2 text-purple-700 bg-white border rounded-md focus:border-purple-400 focus:ring-purple-300 focus:outline-none focus:ring focus:ring-opacity-40"
+              className="block w-full px-4 py-2 mt-2 text-gray-900 bg-white border rounded-md focus:border-purple-400 focus:ring-purple-300 focus:outline-none focus:ring focus:ring-opacity-40"
               name="password"
               onChange={(e) => handleForm(e)}
               value={values.password}

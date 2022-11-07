@@ -5,6 +5,7 @@ import { queryClient } from "../..";
 import { request } from "../../utils/axios";
 import { placeHolderImage } from "../../utils/etc";
 import MenuElement from "../../utils/headlessUiElement/menu";
+import { ExitIcon, ProfileImage } from "../AtomicDesign/Atoms";
 
 const HomeRight = () => {
   const navigate = useNavigate();
@@ -45,27 +46,20 @@ const HomeRight = () => {
         <MenuElement menuBtnClasses="w-full" handleButton={logOut}>
           <div className="flex justify-between items-center bg-white drop-shadow-lg rounded-lg my-4 p-2">
             <span className="text-lg font-medium">{user?.name}</span>
-            {user.profileImage ? (
-              <img
-                className="w-12 h-12 rounded-full object-cover shadow"
-                src={user?.profileImage}
-                alt="Profile avatar"
-                loading="lazy"
-              />
-            ) : (
-              <img
-                className="w-12 h-12 rounded-full object-cover shadow"
-                src={placeHolderImage}
-                alt="Profile avatar"
-                loading="lazy"
-              />
-            )}
+            <ProfileImage
+              customClasses="w-12 h-12 rounded-full object-cover shadow"
+              src={user?.profileImage}
+              alt="Profile avatar"
+            />
           </div>
         </MenuElement>
       ) : (
-        <div className="flex justify-center items-center bg-white drop-shadow-lg rounded-lg my-4 p-2">
+        <div className="">
           <Link to="/auth" className="text-lg font-medium">
-            Sign in
+            <div className="flex justify-center items-center gap-2 bg-white hover:bg-sky-700 hover:text-white drop-shadow-lg rounded-lg my-4 p-2">
+              Sign in
+              <ExitIcon customClasses="w-8 h-8" />
+            </div>
           </Link>
         </div>
       )}

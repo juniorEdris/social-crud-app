@@ -1,100 +1,6 @@
 import moment from "moment";
 import { imgdestination, placeHolderImage } from "../../../utils/etc";
 
-export const Image = ({ customClasses = "", src, alt = "" }) => (
-  <img
-    className={`${customClasses}`}
-    src={`${imgdestination}${src}`}
-    alt={alt}
-    loading="lazy"
-  />
-);
-
-export const Heading1 = ({ customClasses = "", heading = "" }) => (
-  <h1 className={`text-lg font-medium ${customClasses}`}>{heading}</h1>
-);
-
-export const ProfileImage = ({ customClasses = "", src = "", alt = "" }) =>
-  src ? (
-    <Image
-      customClasses={`w-12 h-12 rounded-full object-cover mr-4 shadow ${customClasses}`}
-      src={src}
-      alt={alt}
-    />
-  ) : (
-    <Image
-      customClasses={`w-12 h-12 rounded-full object-cover mr-4 shadow ${customClasses}`}
-      src={placeHolderImage}
-      alt={alt}
-    />
-  );
-
-export const ProfileNameHeading = ({ customClasses = "", heading = "" }) => (
-  <h2 className={`text-lg font-semibold text-gray-900 -mt-1 ${customClasses}`}>
-    {heading}
-  </h2>
-);
-export const PrimaryText = ({ customClasses = "", text = "" }) =>
-  text ? <p className={`text-gray-700 ${customClasses}`}>{text}</p> : null;
-
-export const AgoMoment = ({ customClasses = "", time = "" }) => (
-  <small className={`text-sm text-gray-700 ${customClasses}`}>
-    {moment(time).fromNow()}
-  </small>
-);
-
-export const MutateButton = ({
-  customClasses = "",
-  title = "",
-  handleMutate = () => {},
-  disabled,
-}) => (
-  <button
-    type="button"
-    className={`inline-flex items-center px-5 py-2.5 text-center rounded-lg ${customClasses}`}
-    disabled={disabled}
-    onClick={handleMutate}
-  >
-    {title}
-  </button>
-);
-
-export const CloseButton = ({
-  customClasses = "",
-  title = "",
-  handleClose = () => {},
-  disabled,
-}) => (
-  <button
-    type="button"
-    className={`inline-flex items-center px-5 py-2.5 text-center rounded-lg ${customClasses}`}
-    disabled={disabled}
-    onClick={handleClose}
-  >
-    {title}
-  </button>
-);
-
-export const TextArea = ({
-  name = "",
-  customClasses = "",
-  rows = 4,
-  placeholder = "",
-  value = "",
-  handleTextarea = () => {},
-}) => (
-  <textarea
-    name={name}
-    rows={rows}
-    className={customClasses}
-    placeholder={placeholder}
-    value={value}
-    onChange={(e) => {
-      handleTextarea(e);
-    }}
-  ></textarea>
-);
-
 //  SVG Icons (Hero Icons)
 export const HomeIcon = ({ customClasses = "w-6 h-6" }) => {
   return (
@@ -277,3 +183,103 @@ export const OptionsIcon = ({ customClasses = "w-6 h-6" }) => {
     </svg>
   );
 };
+
+export const SpinIcon = ({ customClasses = "w-6 h-6" }) => {
+  return <svg class="animate-spin h-5 w-5 mr-3 ..." viewBox="0 0 24 24"></svg>;
+};
+
+// Elements for App
+export const Image = ({ customClasses = "", src, alt = "" }) => (
+  <img
+    className={`${customClasses}`}
+    src={`${imgdestination}${src}`}
+    alt={alt}
+    loading="lazy"
+  />
+);
+
+export const Heading1 = ({ customClasses = "", heading = "" }) => (
+  <h1 className={`text-lg font-medium ${customClasses}`}>{heading}</h1>
+);
+
+export const ProfileImage = ({ customClasses = "", src = "", alt = "" }) =>
+  src ? (
+    <Image
+      customClasses={`w-12 h-12 rounded-full object-cover mr-4 shadow ${customClasses}`}
+      src={src}
+      alt={alt}
+    />
+  ) : (
+    <Image
+      customClasses={`w-12 h-12 rounded-full object-cover mr-4 shadow ${customClasses}`}
+      src={placeHolderImage}
+      alt={alt}
+    />
+  );
+
+export const ProfileNameHeading = ({ customClasses = "", heading = "" }) => (
+  <h2 className={`text-lg font-semibold text-gray-900 -mt-1 ${customClasses}`}>
+    {heading}
+  </h2>
+);
+export const PrimaryText = ({ customClasses = "", text = "" }) =>
+  text ? <p className={`text-gray-700 ${customClasses}`}>{text}</p> : null;
+
+export const AgoMoment = ({ customClasses = "", time = "" }) => (
+  <small className={`text-sm text-gray-700 ${customClasses}`}>
+    {moment(time).fromNow()}
+  </small>
+);
+
+export const MutateButton = ({
+  customClasses = "",
+  title = "",
+  handleMutate = () => {},
+  disabled,
+  loading = false,
+}) => (
+  <button
+    type="button"
+    className={`inline-flex items-center px-5 py-2.5 text-center rounded-lg ${customClasses}`}
+    disabled={disabled}
+    onClick={handleMutate}
+  >
+    {title}
+  </button>
+);
+
+export const CloseButton = ({
+  customClasses = "",
+  title = "",
+  handleClose = () => {},
+  disabled,
+}) => (
+  <button
+    type="button"
+    className={`inline-flex items-center px-5 py-2.5 text-center rounded-lg ${customClasses}`}
+    disabled={disabled}
+    onClick={handleClose}
+  >
+    {title}
+  </button>
+);
+
+export const TextArea = ({
+  name = "",
+  customClasses = "",
+  rows = 4,
+  placeholder = "",
+  value = "",
+  handleTextarea = () => {},
+}) => (
+  <textarea
+    name={name}
+    rows={rows}
+    className={customClasses}
+    placeholder={placeholder}
+    value={value}
+    onChange={(e) => {
+      handleTextarea(e);
+    }}
+  ></textarea>
+);

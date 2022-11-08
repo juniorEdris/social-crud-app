@@ -29,14 +29,14 @@ const PostCard = ({ post }) => {
   const [totalComment, setTotalComment] = useState(0);
   const [deleteModalOpen, setDeleteModalOpen] = useState(false);
 
-  const { mutate } = useMutation({
+  const { mutate, isLoading } = useMutation({
     mutationKey: "postDelete",
     mutationFn: (id) => {
       return request
         .post(`/api/delete/post/${id}`)
-        .then((data) => {
-          queryClient.invalidateQueries(["posts"]);
-          setDeleteModalOpen((prev) => !prev);
+        .then(async (data) => {
+          await queryClient.invalidateQueries(["posts"]);
+          await setDeleteModalOpen((prev) => !prev);
         })
         .catch((error) => {
           console.log({ error });
@@ -172,12 +172,14 @@ const PostCard = ({ post }) => {
               customClasses="justify-center mr-3 w-[100px] focus:ring-red-20 text-sm text-white font-medium hover:bg-red-800 text-white bg-red-700"
               title="Delete"
               handleMutate={handlePostDelete}
+              disabled={isLoading}
             />
 
             <CloseButton
               title="Cancel"
               customClasses="justify-center w-[100px] focus:ring-blue-20 text-sm font-medium bg-blue-700 hover:bg-blue-800 text-white"
               handleClose={() => setDeleteModalOpen((prev) => !prev)}
+              disabled={isLoading}
             />
           </div>
         </div>

@@ -20,7 +20,7 @@ const PublishPost = ({ post, handlePost, handlePostSubmit, activeBtn }) => {
             />
           </div>
           {/* preview after select image section start here */}
-          <div className="">
+          {/* <div className="">
             {post.file ? (
               <img
                 className="w-[124px] p-2 cont"
@@ -69,7 +69,7 @@ const PublishPost = ({ post, handlePost, handlePostSubmit, activeBtn }) => {
                 </label>
               </div>
             )}
-          </div>
+          </div> */}
           {/* preview after select image section ends here */}
         </div>
         <MutateButton

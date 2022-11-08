@@ -4,7 +4,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { queryClient } from "../..";
 import { request } from "../../utils/axios";
 import MenuElement from "../../utils/headlessUiElement/menu";
-import { ExitIcon, ProfileImage } from "../AtomicDesign/Atoms";
+import { EnterIcon, ProfileImage } from "../AtomicDesign/Atoms";
 
 const HomeRight = () => {
   const navigate = useNavigate();
@@ -19,7 +19,7 @@ const HomeRight = () => {
         .then((data) => {
           localStorage.removeItem("user");
           setAuth(null);
-          navigate("/auth");
+          navigate("/auth", { replace: true });
           queryClient.invalidateQueries(["posts"]);
         })
         .catch((error) => {
@@ -57,7 +57,7 @@ const HomeRight = () => {
           <Link to="/auth" className="text-lg font-medium">
             <div className="flex justify-center items-center gap-2 bg-white hover:bg-sky-700 hover:text-white drop-shadow-lg rounded-lg my-4 p-2">
               Sign in
-              <ExitIcon customClasses="w-8 h-8" />
+              <EnterIcon customClasses="w-8 h-8" />
             </div>
           </Link>
         </div>

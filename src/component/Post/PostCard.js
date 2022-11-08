@@ -1,11 +1,19 @@
+import { useMutation } from "@tanstack/react-query";
 import { useState } from "react";
+import { queryClient } from "../..";
+import { request } from "../../utils/axios";
+import PostOptions from "../../utils/headlessUiElement/postOptions";
 import {
   AgoMoment,
+  CloseButton,
   CommentOutline,
   CommentSolid,
+  Heading1,
   Image,
   LikeOutline,
   LikeSolid,
+  MutateButton,
+  OptionsIcon,
   PrimaryText,
   ProfileImage,
   ProfileNameHeading,
@@ -19,18 +27,55 @@ const PostCard = ({ post }) => {
   const [liked, setLiked] = useState(false);
   const [showCommentBox, setShowCommentBox] = useState(false);
   const [totalComment, setTotalComment] = useState(0);
+  const [deleteModalOpen, setDeleteModalOpen] = useState(false);
+
+  const { mutate } = useMutation({
+    mutationKey: "postDelete",
+    mutationFn: (id) => {
+      return request
+        .post(`/api/delete/post/${id}`)
+        .then((data) => {
+          queryClient.invalidateQueries(["posts"]);
+          setDeleteModalOpen((prev) => !prev);
+        })
+        .catch((error) => {
+          console.log({ error });
+          alert(`Post delete unsuccessful!`);
+        });
+    },
+    onError: (err) => {
+      console.log({ err });
+      alert(`Post delete unsuccessful!`);
+    },
+  });
+
+  const handlePostDelete = async () => {
+    await mutate(post?._id);
+  };
   return (
     <div className="bg-white shadow-lg rounded-lg my-4 ">
       <div className="px-4 py-6">
-        <div className="flex items-start gap-1 mb-3">
+        <div className="flex items-center gap-1 mb-3">
           <div className="">
             <ProfileImage src={post.userImage} alt="avatar" />
           </div>
-          <div className="flex items-start flex-col gap-1">
-            <div className="">
-              <ProfileNameHeading heading={post?.userName} />
+          <div className="flex items-start justify-between w-full">
+            <div className="flex items-start flex-col gap-1">
+              <div className="">
+                <ProfileNameHeading heading={post?.userName} />
+              </div>
+              <AgoMoment time={post.createdAt} />
             </div>
-            <AgoMoment time={post.createdAt} />
+            <div className="">
+              <span className="cursor-pointer" tabIndex={0} role="button">
+                <PostOptions
+                  menuClasses="w-full"
+                  handleDelete={() => setDeleteModalOpen((prev) => !prev)}
+                >
+                  <OptionsIcon />
+                </PostOptions>
+              </span>
+            </div>
           </div>
         </div>
         <div className={``}>
@@ -108,6 +153,34 @@ const PostCard = ({ post }) => {
           src={post?.imageName}
           alt={post?.text ?? "Post"}
         />
+      </Modal>
+      {/* Post delete modal */}
+      <Modal
+        open={{ isOpen: deleteModalOpen, setIsOpen: setDeleteModalOpen }}
+        customPanelClasses="max-w-[500px] bg-white rounded-lg"
+        title={"Delete Modal"}
+      >
+        <div className="py-5">
+          <div className="mb-5">
+            <Heading1
+              customClasses="text-2xl"
+              heading={`You want to delete this post?`}
+            />
+          </div>
+          <div className="">
+            <MutateButton
+              customClasses="justify-center mr-3 w-[100px] focus:ring-red-20 text-sm text-white font-medium hover:bg-red-800 text-white bg-red-700"
+              title="Delete"
+              handleMutate={handlePostDelete}
+            />
+
+            <CloseButton
+              title="Cancel"
+              customClasses="justify-center w-[100px] focus:ring-blue-20 text-sm font-medium bg-blue-700 hover:bg-blue-800 text-white"
+              handleClose={() => setDeleteModalOpen((prev) => !prev)}
+            />
+          </div>
+        </div>
       </Modal>
     </div>
   );

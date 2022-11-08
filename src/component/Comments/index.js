@@ -76,7 +76,7 @@ const Comments = ({ id }) => {
           <div className="">
             <MutateButton
               title="Publish post"
-              customClasses={`inline-flex items-center px-5 py-2.5 text-sm font-medium text-center text-white bg-blue-700 rounded-lg focus:ring-4 focus:ring-blue-20 hover:bg-blue-800 disabled:bg-blue-200 disabled:hover:disabled:bg-blue-200`}
+              customClasses={`focus:ring-blue-20 text-sm font-medium hover:bg-blue-800 disabled:bg-blue-200 disabled:hover:disabled:bg-blue-200 text-white bg-blue-700 `}
               disabled={size(commentText) < 0}
               handleMutate={handleCommentSubmit}
             />

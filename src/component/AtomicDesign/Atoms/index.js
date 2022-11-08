@@ -1,10 +1,10 @@
 import moment from "moment";
-import { placeHolderImage } from "../../../utils/etc";
+import { imgdestination, placeHolderImage } from "../../../utils/etc";
 
 export const Image = ({ customClasses = "", src, alt = "" }) => (
   <img
     className={`${customClasses}`}
-    src={`/images/${src}`}
+    src={`${imgdestination}${src}`}
     alt={alt}
     loading="lazy"
   />

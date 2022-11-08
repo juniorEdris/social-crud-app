@@ -105,9 +105,8 @@ const PostCard = ({ post }) => {
       >
         <Image
           customClasses="w-full"
-          src={`/images/${post?.imageName}`}
+          src={post?.imageName}
           alt={post?.text ?? "Post"}
-          loading="lazy"
         />
       </Modal>
     </div>

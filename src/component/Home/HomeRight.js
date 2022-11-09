@@ -1,16 +1,15 @@
 import { useMutation } from "@tanstack/react-query";
-import { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { useContext } from "react";
+import { Link } from "react-router-dom";
 import { queryClient } from "../..";
+import AuthContext from "../../context/AuthContext";
 import { request } from "../../utils/axios";
-import { Auth } from "../../utils/etc";
 import MenuElement from "../../utils/headlessUiElement/menu";
 import { EnterIcon, ProfileImage } from "../AtomicDesign/Atoms";
 
 const HomeRight = () => {
-  const navigate = useNavigate();
-  const user = Auth();
-  const [auth, setAuth] = useState(user ? user : null);
+  const { auth, setAuth } = useContext(AuthContext);
+  const user = auth;
 
   const { mutate } = useMutation({
     mutationKey: "logout",
@@ -20,7 +19,7 @@ const HomeRight = () => {
         .then((data) => {
           localStorage.removeItem("user");
           setAuth(null);
-          navigate("/auth", { replace: true });
+          // navigate("/auth", { replace: true });
           queryClient.invalidateQueries(["posts"]);
         })
         .catch((error) => {

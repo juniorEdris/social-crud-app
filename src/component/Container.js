@@ -1,3 +1,4 @@
+import { useContext } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import {
   EnterIcon,
@@ -9,9 +10,11 @@ import { useLocation } from "react-router-dom";
 import { queryClient } from "..";
 import { request } from "../utils/axios";
 import { useMutation } from "@tanstack/react-query";
-import { Auth } from "../utils/etc";
+// import { Auth } from "../utils/etc";
+import AuthContext from "../context/AuthContext";
 
 const Container = ({ children }) => {
+  const { auth, setAuth } = useContext(AuthContext);
   const { pathname = "/" } = useLocation();
 
   const navigate = useNavigate();
@@ -23,7 +26,8 @@ const Container = ({ children }) => {
         .post("/api/logout")
         .then((data) => {
           localStorage.removeItem("user");
-          navigate("/auth", { replace: true });
+          // navigate("/auth", { replace: true });
+          setAuth(null);
           queryClient.invalidateQueries(["posts"]);
         })
         .catch((error) => {
@@ -63,7 +67,7 @@ const Container = ({ children }) => {
           </div>
         </Link>
 
-        {!Auth() ? (
+        {!auth ? (
           <Link to="/auth" className="font-medium md:hidden">
             <div
               className={`${

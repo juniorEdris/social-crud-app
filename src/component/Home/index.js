@@ -1,14 +1,15 @@
 import { useMutation } from "@tanstack/react-query";
-import { useState } from "react";
+import { useState, useContext } from "react";
 import { queryClient } from "../..";
 import { request } from "../../utils/axios";
 import NewsFeed from "./NewsFeed";
 import PublishPost from "../Post/PublishPost";
 import HomeLeft from "./HomeLeft";
 import HomeRight from "./HomeRight";
-import { Auth } from "../../utils/etc";
+import AuthContext from "../../context/AuthContext";
 
 const Home = () => {
+  const { auth } = useContext(AuthContext);
   const [post, setPost] = useState({ text: "", file: null });
 
   // Mutation
@@ -68,7 +69,7 @@ const Home = () => {
             <h2 className="text-2xl font-medium text-center">News Feed</h2>
           </div>
         </div>
-        {!Auth() ? null : (
+        {!auth ? null : (
           <div className="">
             <PublishPost
               post={post}

@@ -1,8 +1,8 @@
 import { useMutation } from "@tanstack/react-query";
-import { useState } from "react";
+import { useState, useContext } from "react";
 import { queryClient } from "../..";
+import AuthContext from "../../context/AuthContext";
 import { request } from "../../utils/axios";
-import { Auth } from "../../utils/etc";
 import PostOptions from "../../utils/headlessUiElement/postOptions";
 import {
   AgoMoment,
@@ -23,6 +23,7 @@ import Modal from "../AtomicDesign/Template/Modal";
 import Comments from "../Comments";
 
 const PostCard = ({ post }) => {
+  const { auth, setAuth } = useContext(AuthContext);
   const [isOpen, setIsOpen] = useState(false);
   const [liked, setLiked] = useState(false);
   const [showCommentBox, setShowCommentBox] = useState(false);
@@ -67,7 +68,7 @@ const PostCard = ({ post }) => {
               <AgoMoment time={post.createdAt} />
             </div>
             <div className="">
-              {Auth() && Auth().id === post?.userId ? (
+              {auth && auth.id === post?.userId ? (
                 <span className="cursor-pointer" tabIndex={0} role="button">
                   <PostOptions
                     menuClasses="w-full"
@@ -98,7 +99,7 @@ const PostCard = ({ post }) => {
             </div>
           ) : null}
         </div>
-        {Auth() ? (
+        {auth ? (
           <div className="my-3 flex gap-5 items-center">
             <div
               className="flex items-center mr-2 text-gray-700 text-lg cursor-pointer"
@@ -134,7 +135,7 @@ const PostCard = ({ post }) => {
           </div>
         ) : null}
         {/* Comment section start here */}
-        {Auth() ? (
+        {auth ? (
           <>
             {showCommentBox ? (
               <div className="border-t-2 border-t-slate-200">

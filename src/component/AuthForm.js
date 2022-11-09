@@ -1,13 +1,20 @@
 import React from "react";
 
-const AuthForm = ({ label = "Sign in", values, handleForm, actionBtn }) => {
+const AuthForm = ({
+  label = "Sign in",
+  values,
+  handleForm,
+  actionBtn,
+  onSubmit,
+  errorMsg,
+}) => {
   return (
     <div className="relative flex flex-col justify-center min-h-screen overflow-hidden">
       <div className="w-full p-6 m-auto bg-white rounded-md shadow-md lg:max-w-xl">
         {/* <h1 className="text-3xl font-semibold text-center text-sky-700 underline">
           {label}
         </h1> */}
-        <form className="mt-6">
+        <form className="mt-6" onSubmit={onSubmit}>
           <div className="mb-2">
             <label
               htmlFor="email"
@@ -17,6 +24,7 @@ const AuthForm = ({ label = "Sign in", values, handleForm, actionBtn }) => {
             </label>
             <input
               type="email"
+              autoComplete="off"
               className="block w-full px-4 py-2 mt-2 text-gray-900 bg-white border rounded-md focus:border-purple-400 focus:ring-purple-300 focus:outline-none focus:ring focus:ring-opacity-40"
               value={values?.email}
               name="email"
@@ -33,6 +41,7 @@ const AuthForm = ({ label = "Sign in", values, handleForm, actionBtn }) => {
               </label>
               <input
                 type="text"
+                autoComplete="off"
                 className="block w-full px-4 py-2 mt-2 text-gray-900 bg-white border rounded-md focus:border-purple-400 focus:ring-purple-300 focus:outline-none focus:ring focus:ring-opacity-40"
                 value={values?.userName}
                 name="userName"
@@ -55,6 +64,7 @@ const AuthForm = ({ label = "Sign in", values, handleForm, actionBtn }) => {
               value={values.password}
             />
           </div>
+          {errorMsg}
           <div className="mt-6">{actionBtn}</div>
         </form>
       </div>

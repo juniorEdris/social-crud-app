@@ -23,7 +23,6 @@ import Modal from "../AtomicDesign/Template/Modal";
 import Comments from "../Comments";
 
 const PostCard = ({ post }) => {
-  const user = localStorage.getItem("user");
   const [isOpen, setIsOpen] = useState(false);
   const [liked, setLiked] = useState(false);
   const [showCommentBox, setShowCommentBox] = useState(false);
@@ -99,7 +98,7 @@ const PostCard = ({ post }) => {
             </div>
           ) : null}
         </div>
-        {user ? (
+        {Auth() ? (
           <div className="my-3 flex gap-5 items-center">
             <div
               className="flex items-center mr-2 text-gray-700 text-lg cursor-pointer"
@@ -135,7 +134,7 @@ const PostCard = ({ post }) => {
           </div>
         ) : null}
         {/* Comment section start here */}
-        {user ? (
+        {Auth() ? (
           <>
             {showCommentBox ? (
               <div className="border-t-2 border-t-slate-200">

@@ -3,12 +3,13 @@ import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { queryClient } from "../..";
 import { request } from "../../utils/axios";
+import { Auth } from "../../utils/etc";
 import MenuElement from "../../utils/headlessUiElement/menu";
 import { EnterIcon, ProfileImage } from "../AtomicDesign/Atoms";
 
 const HomeRight = () => {
   const navigate = useNavigate();
-  const user = JSON.parse(localStorage.getItem("user"));
+  const user = Auth();
   const [auth, setAuth] = useState(user ? user : null);
 
   const { mutate } = useMutation({

@@ -6,12 +6,9 @@ import NewsFeed from "./NewsFeed";
 import PublishPost from "../Post/PublishPost";
 import HomeLeft from "./HomeLeft";
 import HomeRight from "./HomeRight";
+import { Auth } from "../../utils/etc";
 
 const Home = () => {
-  const user = localStorage.getItem("user")
-    ? JSON.parse(localStorage.getItem("user"))
-    : null;
-
   const [post, setPost] = useState({ text: "", file: null });
 
   // Mutation
@@ -71,7 +68,7 @@ const Home = () => {
             <h2 className="text-2xl font-medium text-center">News Feed</h2>
           </div>
         </div>
-        {!user ? null : (
+        {!Auth() ? null : (
           <div className="">
             <PublishPost
               post={post}

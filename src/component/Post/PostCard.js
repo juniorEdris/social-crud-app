@@ -2,6 +2,7 @@ import { useMutation } from "@tanstack/react-query";
 import { useState } from "react";
 import { queryClient } from "../..";
 import { request } from "../../utils/axios";
+import { Auth } from "../../utils/etc";
 import PostOptions from "../../utils/headlessUiElement/postOptions";
 import {
   AgoMoment,
@@ -67,14 +68,16 @@ const PostCard = ({ post }) => {
               <AgoMoment time={post.createdAt} />
             </div>
             <div className="">
-              <span className="cursor-pointer" tabIndex={0} role="button">
-                <PostOptions
-                  menuClasses="w-full"
-                  handleDelete={() => setDeleteModalOpen((prev) => !prev)}
-                >
-                  <OptionsIcon />
-                </PostOptions>
-              </span>
+              {Auth() && Auth().id === post?.userId ? (
+                <span className="cursor-pointer" tabIndex={0} role="button">
+                  <PostOptions
+                    menuClasses="w-full"
+                    handleDelete={() => setDeleteModalOpen((prev) => !prev)}
+                  >
+                    <OptionsIcon />
+                  </PostOptions>
+                </span>
+              ) : null}
             </div>
           </div>
         </div>

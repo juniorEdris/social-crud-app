@@ -1,14 +1,13 @@
 import { useMutation } from "@tanstack/react-query";
-import { useContext } from "react";
 import { Link } from "react-router-dom";
 import { queryClient } from "../..";
-import AuthContext from "../../context/AuthContext";
+import useAuth from "../../hooks/useAuth";
 import { request } from "../../utils/axios";
 import MenuElement from "../../utils/headlessUiElement/menu";
 import { EnterIcon, ProfileImage } from "../AtomicDesign/Atoms";
 
 const HomeRight = () => {
-  const { auth, setAuth } = useContext(AuthContext);
+  const { auth, setAuth } = useAuth();
   const user = auth;
 
   const { mutate } = useMutation({

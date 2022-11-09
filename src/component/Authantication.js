@@ -1,13 +1,13 @@
 import { useMutation } from "@tanstack/react-query";
-import React, { useState, useContext } from "react";
-import { useNavigate } from "react-router-dom";
-import AuthContext from "../context/AuthContext";
+import React, { useState } from "react";
+import { useNavigate, useLocation } from "react-router-dom";
+import useAuth from "../hooks/useAuth";
 import { request } from "../utils/axios";
 import { EMAIL_REGEX, PWD_REGEX, USER_REGEX } from "../utils/etc";
 import AuthForm from "./AuthForm";
 
 const Authantication = () => {
-  const { setAuth } = useContext(AuthContext);
+  const { setAuth } = useAuth();
   const [values, setValues] = useState({
     email: "",
     password: "",
@@ -17,6 +17,8 @@ const Authantication = () => {
   const [errormsg, setErrormsg] = useState("");
 
   const navigate = useNavigate();
+  const location = useLocation();
+  const from = location?.state?.form?.pathname || "/";
 
   const { mutate } = useMutation({
     mutationKey: "athenticate",
@@ -26,7 +28,7 @@ const Authantication = () => {
         .then((data) => {
           localStorage.setItem("user", JSON.stringify(data?.data?.data?.user));
           setAuth(data?.data?.data?.user);
-          navigate("/", { replace: true });
+          navigate(from, { replace: true });
         })
         .catch((error) => {
           console.log({ error });

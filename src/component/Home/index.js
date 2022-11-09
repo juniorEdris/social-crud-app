@@ -1,15 +1,15 @@
 import { useMutation } from "@tanstack/react-query";
-import { useState, useContext } from "react";
+import { useState } from "react";
 import { queryClient } from "../..";
 import { request } from "../../utils/axios";
 import NewsFeed from "./NewsFeed";
 import PublishPost from "../Post/PublishPost";
 import HomeLeft from "./HomeLeft";
 import HomeRight from "./HomeRight";
-import AuthContext from "../../context/AuthContext";
+import useAuth from "../../hooks/useAuth";
 
 const Home = () => {
-  const { auth } = useContext(AuthContext);
+  const { auth } = useAuth();
   const [post, setPost] = useState({ text: "", file: null });
 
   // Mutation

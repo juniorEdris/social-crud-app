@@ -1,7 +1,7 @@
 import { useMutation } from "@tanstack/react-query";
-import { useState, useContext } from "react";
+import { useState } from "react";
 import { queryClient } from "../..";
-import AuthContext from "../../context/AuthContext";
+import useAuth from "../../hooks/useAuth";
 import { request } from "../../utils/axios";
 import PostOptions from "../../utils/headlessUiElement/postOptions";
 import {
@@ -23,7 +23,7 @@ import Modal from "../AtomicDesign/Template/Modal";
 import Comments from "../Comments";
 
 const PostCard = ({ post }) => {
-  const { auth, setAuth } = useContext(AuthContext);
+  const { auth } = useAuth();
   const [isOpen, setIsOpen] = useState(false);
   const [liked, setLiked] = useState(false);
   const [showCommentBox, setShowCommentBox] = useState(false);

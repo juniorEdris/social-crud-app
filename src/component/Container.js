@@ -1,4 +1,3 @@
-import { useContext } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import {
   EnterIcon,
@@ -10,11 +9,10 @@ import { useLocation } from "react-router-dom";
 import { queryClient } from "..";
 import { request } from "../utils/axios";
 import { useMutation } from "@tanstack/react-query";
-// import { Auth } from "../utils/etc";
-import AuthContext from "../context/AuthContext";
+import useAuth from "../hooks/useAuth";
 
 const Container = ({ children }) => {
-  const { auth, setAuth } = useContext(AuthContext);
+  const { auth, setAuth } = useAuth();
   const { pathname = "/" } = useLocation();
 
   const navigate = useNavigate();
@@ -57,10 +55,10 @@ const Container = ({ children }) => {
             <HomeIcon customClasses={`w-8 h-8`} />
           </div>
         </Link>
-        <Link to="/find-friends" className="font-medium">
+        <Link to="/profile" className="font-medium">
           <div
             className={`${
-              pathname === "/find-friends" ? "bg-sky-700 text-white" : ""
+              pathname === "/profile" ? "bg-sky-700 text-white" : ""
             } border p-2 hover:bg-sky-700 rounded-lg hover:text-white`}
           >
             <FindFriendsIcon customClasses="w-8 h-8" />

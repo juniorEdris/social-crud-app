@@ -9,3 +9,9 @@ export const request = axios.create({
   baseURL: GetURL(),
   withCredentials: true,
 });
+
+export const axiosPrivate = axios.create({
+  baseURL: GetURL(),
+  // headers: { 'Content-Type': 'application/json' },
+  withCredentials: true,
+});

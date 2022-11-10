@@ -11,6 +11,7 @@ import {
   CommentSolid,
   Heading1,
   Image,
+  Input,
   LikeOutline,
   LikeSolid,
   MutateButton,
@@ -18,17 +19,20 @@ import {
   PrimaryText,
   ProfileImage,
   ProfileNameHeading,
+  SpinIcon,
 } from "../AtomicDesign/Atoms";
 import Modal from "../AtomicDesign/Template/Modal";
 import Comments from "../Comments";
 
 const PostCard = ({ post }) => {
   const { auth } = useAuth();
+  const [postText, setPostText] = useState(post?.text || "");
   const [isOpen, setIsOpen] = useState(false);
   const [liked, setLiked] = useState(false);
   const [showCommentBox, setShowCommentBox] = useState(false);
   const [totalComment, setTotalComment] = useState(0);
   const [deleteModalOpen, setDeleteModalOpen] = useState(false);
+  const [updateModal, setUpdateModal] = useState(false);
 
   const { mutate, isLoading } = useMutation({
     mutationKey: "postDelete",
@@ -49,9 +53,32 @@ const PostCard = ({ post }) => {
       alert(`Post delete unsuccessful!`);
     },
   });
+  const { mutate: updatePost, isLoading: updatePostLoading } = useMutation({
+    mutationKey: "postUpdate",
+    mutationFn: ({ id, text }) => {
+      return request
+        .post(`/api/update/post/${id}`, { text: text.toString() })
+        .then(async (data) => {
+          await queryClient.invalidateQueries(["posts"]);
+          await setUpdateModal((prev) => !prev);
+        })
+        .catch((error) => {
+          console.log({ error });
+          alert(`Post update unsuccessful!`);
+        });
+    },
+    onError: (err) => {
+      console.log({ err });
+      alert(`Post update unsuccessful!`);
+    },
+  });
 
   const handlePostDelete = async () => {
     await mutate(post?._id);
+  };
+
+  const handleUpdatePost = async () => {
+    await updatePost({ id: post?._id, text: postText });
   };
   return (
     <div className="bg-white shadow-lg rounded-lg my-4 ">
@@ -73,6 +100,7 @@ const PostCard = ({ post }) => {
                   <PostOptions
                     menuClasses="w-full"
                     handleDelete={() => setDeleteModalOpen((prev) => !prev)}
+                    handleEdit={() => setUpdateModal((prev) => !prev)}
                   >
                     <OptionsIcon />
                   </PostOptions>
@@ -171,6 +199,7 @@ const PostCard = ({ post }) => {
             />
           </div>
           <div className="">
+            {isLoading ? <SpinIcon /> : null}
             <MutateButton
               customClasses="justify-center mr-3 w-[100px] focus:ring-red-20 text-sm text-white font-medium hover:bg-red-800 text-white bg-red-700"
               title="Delete"
@@ -183,6 +212,38 @@ const PostCard = ({ post }) => {
               customClasses="justify-center w-[100px] focus:ring-blue-20 text-sm font-medium bg-blue-700 hover:bg-blue-800 text-white"
               handleClose={() => setDeleteModalOpen((prev) => !prev)}
               disabled={isLoading}
+            />
+          </div>
+        </div>
+      </Modal>
+      {/* Post Update modal */}
+      <Modal
+        open={{ isOpen: updateModal, setIsOpen: setUpdateModal }}
+        customPanelClasses="max-w-[500px] bg-white rounded-lg"
+        title={"Update Post"}
+      >
+        <div className="py-5">
+          <div className="mb-5">
+            <Input
+              customClasses=""
+              name="post-text"
+              onChange={(e) => setPostText(e.target.value)}
+              value={postText}
+            />
+          </div>
+          <div className="">
+            <MutateButton
+              customClasses="disabled:bg-blue-200 justify-center mr-3 w-[100px] focus:ring-red-20 border text-sm text-black hover:text-white font-medium hover:bg-sky-800 text-white bg-white"
+              title="Update"
+              handleMutate={handleUpdatePost}
+              disabled={updatePostLoading}
+            />
+
+            <CloseButton
+              title="Cancel"
+              customClasses="disabled:bg-blue-200 justify-center w-[100px] focus:ring-blue-20 text-sm font-medium bg-blue-700 hover:bg-blue-800 text-white"
+              handleClose={() => setUpdateModal((prev) => !prev)}
+              disabled={updatePostLoading}
             />
           </div>
         </div>

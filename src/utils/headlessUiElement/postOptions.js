@@ -49,8 +49,9 @@ const PostOptions = ({
                     className={`${
                       active ? "bg-sky-600 text-white" : "text-gray-900"
                     } group w-full rounded-md px-2 py-2 font-medium text-base capitalize`}
+                    onClick={handleEdit}
                   >
-                    help
+                    edit
                   </button>
                 )}
               </Menu.Item>

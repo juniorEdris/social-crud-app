@@ -25,7 +25,7 @@ const AuthForm = ({
             <input
               type="email"
               autoComplete="off"
-              className="block w-full px-4 py-2 mt-2 text-gray-900 bg-white border rounded-md focus:border-purple-400 focus:ring-purple-300 focus:outline-none focus:ring focus:ring-opacity-40"
+              className="block w-full px-4 py-2 mt-2 text-gray-900 bg-white border rounded-md focus:border-blue-400 focus:ring-purple-300 focus:outline-none focus:ring focus:ring-opacity-40"
               value={values?.email}
               name="email"
               onChange={(e) => handleForm(e)}
@@ -42,7 +42,7 @@ const AuthForm = ({
               <input
                 type="text"
                 autoComplete="off"
-                className="block w-full px-4 py-2 mt-2 text-gray-900 bg-white border rounded-md focus:border-purple-400 focus:ring-purple-300 focus:outline-none focus:ring focus:ring-opacity-40"
+                className="block w-full px-4 py-2 mt-2 text-gray-900 bg-white border rounded-md focus:border-blue-400 focus:ring-purple-300 focus:outline-none focus:ring focus:ring-opacity-40"
                 value={values?.userName}
                 name="userName"
                 onChange={(e) => handleForm(e)}

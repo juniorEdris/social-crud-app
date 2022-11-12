@@ -3,6 +3,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { lazy, Suspense } from "react";
 import Container from "./component/Container";
 import PrivateRoute from "./component/PrivateRoute";
+import { SpinIcon } from "./component/AtomicDesign/Atoms";
 
 const App = () => {
   const Authantication = lazy(() => import("./component/Authantication"));
@@ -11,7 +12,7 @@ const App = () => {
   const About = lazy(() => import("./component/About"));
 
   const component = (Page) => (
-    <Suspense fallback={<div>Loading</div>}>
+    <Suspense fallback={<SpinIcon customClasses="h-10 w-10" />}>
       <Container>
         <Page />
       </Container>

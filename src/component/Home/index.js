@@ -6,10 +6,10 @@ import NewsFeed from "./NewsFeed";
 import PublishPost from "../Post/PublishPost";
 import HomeLeft from "./HomeLeft";
 import HomeRight from "./HomeRight";
-import useAuth from "../../hooks/useAuth";
+import useAuthStore from "../../hooks/useAuthStore";
 
 const Home = () => {
-  const { auth } = useAuth();
+  const { auth } = useAuthStore((state) => state);
   const [post, setPost] = useState({ text: "", file: null });
 
   // Mutation

@@ -1,4 +1,4 @@
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import {
   EnterIcon,
   ExitIcon,
@@ -9,13 +9,11 @@ import { useLocation } from "react-router-dom";
 import { queryClient } from "..";
 import { request } from "../utils/axios";
 import { useMutation } from "@tanstack/react-query";
-import useAuth from "../hooks/useAuth";
+import useAuthStore from "../hooks/useAuthStore";
 
 const Container = ({ children }) => {
-  const { auth, setAuth } = useAuth();
+  const { auth, setAuth } = useAuthStore((state) => state);
   const { pathname = "/" } = useLocation();
-
-  const navigate = useNavigate();
 
   const { mutate } = useMutation({
     mutationKey: "logout",

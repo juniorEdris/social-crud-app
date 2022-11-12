@@ -1,13 +1,13 @@
 import { useMutation } from "@tanstack/react-query";
 import { Link } from "react-router-dom";
 import { queryClient } from "../..";
-import useAuth from "../../hooks/useAuth";
+import useAuthStore from "../../hooks/useAuthStore";
 import { request } from "../../utils/axios";
 import MenuElement from "../../utils/headlessUiElement/menu";
 import { EnterIcon, ProfileImage } from "../AtomicDesign/Atoms";
 
 const HomeRight = () => {
-  const { auth, setAuth } = useAuth();
+  const { auth, setAuth } = useAuthStore((state) => state);
   const user = auth;
 
   const { mutate } = useMutation({

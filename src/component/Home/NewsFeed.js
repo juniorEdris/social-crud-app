@@ -1,6 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
 import React from "react";
 import { request } from "../../utils/axios";
+import { SpinIcon } from "../AtomicDesign/Atoms";
 import PostCard from "../Post/PostCard";
 
 const NewsFeed = () => {
@@ -20,7 +21,7 @@ const NewsFeed = () => {
       {(() => {
         if (isLoading) {
           <div className="flex items-center justify-center">
-            <p>Loading!</p>
+            <SpinIcon customClasses="h-11 w-11" />
           </div>;
         }
         if (error) {

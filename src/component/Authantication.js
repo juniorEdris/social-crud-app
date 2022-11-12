@@ -1,13 +1,15 @@
 import { useMutation } from "@tanstack/react-query";
 import React, { useState } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
-import useAuth from "../hooks/useAuth";
+import useAuthStore from "../hooks/useAuthStore";
 import { request } from "../utils/axios";
 import { EMAIL_REGEX, PWD_REGEX, USER_REGEX } from "../utils/etc";
 import AuthForm from "./AuthForm";
 
 const Authantication = () => {
-  const { setAuth } = useAuth();
+  // const { setAuth } = useAuth();
+  const { setAuth } = useAuthStore((state) => state);
+
   const [values, setValues] = useState({
     email: "",
     password: "",

@@ -1,7 +1,7 @@
 import { useMutation } from "@tanstack/react-query";
 import { useState } from "react";
 import { queryClient } from "../..";
-import useAuth from "../../hooks/useAuth";
+import useAuthStore from "../../hooks/useAuthStore";
 import { request } from "../../utils/axios";
 import PostOptions from "../../utils/headlessUiElement/postOptions";
 import {
@@ -25,7 +25,7 @@ import Modal from "../AtomicDesign/Template/Modal";
 import Comments from "../Comments";
 
 const PostCard = ({ post }) => {
-  const { auth } = useAuth();
+  const { auth } = useAuthStore((state) => state);
   const [postText, setPostText] = useState(post?.text || "");
   const [isOpen, setIsOpen] = useState(false);
   const [liked, setLiked] = useState(false);
@@ -190,6 +190,7 @@ const PostCard = ({ post }) => {
         open={{ isOpen: deleteModalOpen, setIsOpen: setDeleteModalOpen }}
         customPanelClasses="max-w-[500px] bg-white rounded-lg"
         title={"Delete Modal"}
+        headerSection
       >
         <div className="py-5">
           <div className="mb-5">
@@ -221,6 +222,7 @@ const PostCard = ({ post }) => {
         open={{ isOpen: updateModal, setIsOpen: setUpdateModal }}
         customPanelClasses="max-w-[500px] bg-white rounded-lg"
         title={"Update Post"}
+        headerSection
       >
         <div className="py-5">
           <div className="mb-5">

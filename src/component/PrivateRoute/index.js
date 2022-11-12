@@ -1,8 +1,8 @@
 import { useLocation, Navigate, Outlet } from "react-router-dom";
-import useAuth from "../../hooks/useAuth";
+import useAuthStore from "../../hooks/useAuthStore";
 
 const PrivateRoute = () => {
-  const { auth } = useAuth();
+  const { auth } = useAuthStore((state) => state);
   const location = useLocation();
 
   return auth?.id ? (
